@@ -66,7 +66,7 @@ defmodule EventBus.Service.Notification do
     msg =
       "Topic(:#{topic}#{registration_status(topic)}) doesn't have subscribers"
 
-    Logger.warn(msg)
+    Logger.warning(msg)
   end
 
   @spec log_error(module(), any()) :: no_return()
