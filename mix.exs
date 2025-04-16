@@ -15,7 +15,7 @@ defmodule EventBus.Mixfile do
       package: package(),
       deps: deps(),
       docs: docs(),
-      dialyzer: [plt_add_deps: :transitive],
+      plt_add_apps: [:mix, :iex],
       test_coverage: [tool: ExCoveralls]
     ]
   end
@@ -38,10 +38,10 @@ defmodule EventBus.Mixfile do
 
   defp deps do
     [
-      {:credo, "~> 1.6", only: [:dev, :test]},
-      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.13", only: [:test]},
-      {:ex_doc, ">= 0.0.0", only: [:dev], runtime: false}
+      {:credo, "~> 1.7.11", only: [:dev, :test]},
+      {:dialyxir, "~> 1.4.5", only: [:dev, :test], runtime: false},
+      {:excoveralls, "~> 0.18.5", only: [:test]},
+      {:ex_doc, "~> 0.34", only: [:dev], runtime: false}
     ]
   end
 
