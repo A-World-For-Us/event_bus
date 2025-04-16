@@ -1,4 +1,4 @@
-# EventBus
+# EventBus (Fork from [otobus/event_bus](https://github.com/otobus/event_bus))
 
 [![Build Status](https://travis-ci.org/otobus/event_bus.svg?branch=master)](https://travis-ci.org/otobus/event_bus)
 [![Module Version](https://img.shields.io/hexpm/v/event_bus.svg)](https://hex.pm/packages/event_bus)
