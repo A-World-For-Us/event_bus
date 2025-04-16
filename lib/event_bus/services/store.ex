@@ -39,7 +39,9 @@ defmodule EventBus.Service.Store do
   @spec fetch(event_shadow()) :: event() | nil
   def fetch({topic, id}) do
     case Ets.lookup(table_name(topic), id) do
-      [{_, %Event{} = event}] -> event
+      [{_, %Event{} = event}] ->
+        event
+
       _ ->
         Logger.log(:info, fn ->
           "[EVENTBUS][STORE]\s#{topic}.#{id}.ets_fetch_error"

@@ -36,6 +36,7 @@ defmodule EventBus.Service.Notification do
     Enum.each(subscribers, fn subscriber ->
       notify_subscriber(subscriber, event_shadow)
     end)
+
     :ok
   end
 

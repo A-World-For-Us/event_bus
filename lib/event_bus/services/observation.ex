@@ -48,8 +48,13 @@ defmodule EventBus.Service.Observation do
   def mark_as_completed({subscriber, event_shadow}) do
     case fetch(event_shadow) do
       {subscribers, completers, skippers} ->
-        save_or_delete(event_shadow, {subscribers, [subscriber | completers], skippers})
-        nil -> :ok
+        save_or_delete(
+          event_shadow,
+          {subscribers, [subscriber | completers], skippers}
+        )
+
+      nil ->
+        :ok
     end
   end
 
@@ -58,16 +63,24 @@ defmodule EventBus.Service.Observation do
   def mark_as_skipped({subscriber, event_shadow}) do
     case fetch(event_shadow) do
       {subscribers, completers, skippers} ->
-        save_or_delete(event_shadow, {subscribers, completers, [subscriber | skippers]})
-      nil -> :ok
+        save_or_delete(
+          event_shadow,
+          {subscribers, completers, [subscriber | skippers]}
+        )
+
+      nil ->
+        :ok
     end
   end
 
   @doc false
-  @spec fetch(event_shadow()) :: {subscribers(), subscribers(), subscribers()} | nil
+  @spec fetch(event_shadow()) ::
+          {subscribers(), subscribers(), subscribers()} | nil
   def fetch({topic, id}) do
     case Ets.lookup(table_name(topic), id) do
-      [{_, data}] -> data
+      [{_, data}] ->
+        data
+
       _ ->
         Logger.log(:info, fn ->
           "[EVENTBUS][OBSERVATION]\s#{topic}.#{id}.ets_fetch_error"

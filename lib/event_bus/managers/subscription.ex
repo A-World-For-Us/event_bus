@@ -11,7 +11,8 @@ defmodule EventBus.Manager.Subscription do
 
   @typep subscriber :: EventBus.subscriber()
   @typep subscribers :: EventBus.subscribers()
-  @typep subscriber_with_topic_patterns :: EventBus.subscriber_with_topic_patterns()
+  @typep subscriber_with_topic_patterns ::
+           EventBus.subscriber_with_topic_patterns()
   @typep topic :: EventBus.topic()
 
   @backend SubscriptionService
@@ -91,15 +92,19 @@ defmodule EventBus.Manager.Subscription do
   ###########################################################################
 
   @doc false
-  @spec handle_call({:subscribed?, subscriber_with_topic_patterns()}, any(), term())
-    :: {:reply, boolean(), term()}
+  @spec handle_call(
+          {:subscribed?, subscriber_with_topic_patterns()},
+          any(),
+          term()
+        ) ::
+          {:reply, boolean(), term()}
   def handle_call({:subscribed?, subscriber}, _from, state) do
     {:reply, @backend.subscribed?(subscriber), state}
   end
 
   @doc false
-  @spec handle_cast({:subscribe, subscriber_with_topic_patterns()}, term())
-    :: no_return()
+  @spec handle_cast({:subscribe, subscriber_with_topic_patterns()}, term()) ::
+          no_return()
   def handle_cast({:subscribe, {subscriber, topic_patterns}}, state) do
     @backend.subscribe({subscriber, topic_patterns})
     {:noreply, state}

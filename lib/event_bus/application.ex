@@ -2,6 +2,7 @@ defmodule EventBus.Application do
   @moduledoc false
 
   use Application
+
   alias EventBus.Manager.{
     Notification,
     Observation,
